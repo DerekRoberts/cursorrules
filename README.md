@@ -11,21 +11,21 @@ These rules configure Cursor's AI assistant behavior to match personal preferenc
 ### Setup Instructions
 
 1. **Clone this repository:**
-    git clone `<REPO_LINK>` ~/workspace/cursorrules
+    git clone `<REPO_LINK>`
 
 2. **Clone the shared copilot-instructions repository** (if you haven't already):
-    git clone https://github.com/bcgov/copilot-instructions.git ~/workspace/copilot-instructions
+    git clone https://github.com/bcgov/copilot-instructions.git
 
 3. **Configure Cursor Settings:**
    - Open Cursor
    - Go to **Settings → Rules → User Rules** (or **Preferences → Rules**)
    - Add both files as references (use absolute paths):
-     @/home/YOUR_USERNAME/workspace/cursorrules/cursorrules
-     @/home/YOUR_USERNAME/workspace/copilot-instructions/.github/copilot-instructions.md
+     @/`<1ST_REPO_PATH>`/cursorrules
+     @/`<2ND_REPO_PATH>`/.github/copilot-instructions.md
 
 **Why both files?**
-- `copilot-instructions.md` = Shared team/work standards (BCGov coding standards, git workflows, etc.)
 - `cursorrules` = Personal preferences (communication style, workflow requirements, etc.)
+- `copilot-instructions.md` = Shared team/work standards (common, works with Copilot)
 - Together they provide complete context: shared standards + personal preferences
 
 ## Structure
@@ -38,7 +38,6 @@ These rules configure Cursor's AI assistant behavior to match personal preferenc
 
 This repository includes automated privacy checks:
 
-- **Pre-commit hook** - Blocks commits containing email addresses, absolute user paths, or API keys
 - **GitHub Actions workflow** - Validates PRs for private information
 
 **Before committing, review for:**
