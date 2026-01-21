@@ -11,10 +11,10 @@ These rules configure Cursor's AI assistant behavior to match personal preferenc
 ### Setup Instructions
 
 1. **Clone this repository:**
-    git clone git@github.com:DerekRoberts/cursorrules.git
+    `git clone git@github.com:DerekRoberts/cursorrules.git`
 
 2. **Clone the shared copilot-instructions repository** (if you haven't already):
-    git clone git@github.com:bcgov/copilot-instructions.git
+    `git clone git@github.com:bcgov/copilot-instructions.git`
 
 3. **Configure Cursor Settings:**
    - Open Cursor
