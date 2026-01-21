@@ -56,26 +56,6 @@ This repository includes automated privacy checks:
 - ✅ Communication style preferences
 - ✅ Repository references (public repos only)
 
-## Markdown Code Block Formatting
-
-**Use 4-space indentation instead of triple backticks (```) for code blocks.**
-
-Triple backticks can break formatting in some contexts (GitHub releases, documentation systems, etc.). Indented code blocks with 4 spaces are more reliable across different markdown processors.
-
-**Example - Use this:**
-    git clone https://github.com/user/repo.git
-    cd repo
-    git pull
-
-**Instead of this:**
-```
-git clone https://github.com/user/repo.git
-cd repo
-git pull
-```
-
-This applies to code blocks in documentation, release notes, or any content that might be pasted into systems that don't handle triple backticks well.
-
 ## Customization
 
 Edit `cursorrules` to match your preferences. Key sections:
