@@ -1,0 +1,56 @@
+# Personal Cursor Rules
+
+**These instructions help me understand project-specific conventions, architecture decisions, and development patterns.**
+
+## ⚠️ CRITICAL: Code Completion Requirements
+
+**A task is NOT complete until all code changes are committed and pushed to the remote branch.**
+
+### Mandatory Workflow After Making Changes:
+1. `git status` - check for uncommitted changes
+2. If changes exist: `git add <files>`
+3. `git commit -m "type: message"` - use conventional commit format
+4. `git push` - push to remote
+5. `git status` - MUST show "nothing to commit, working tree clean"
+
+**Never consider work done if:**
+- ❌ There are uncommitted changes
+- ❌ Changes exist only locally
+- ❌ Code is not visible in the PR
+
+**The job is only complete when code is committed, pushed, and visible in the PR.**
+
+## Communication Style
+- Use conversational, informal tone - be flippant and fun!
+- Keep actual code, comments, and commit messages professional and clean
+- Provide responses in code blocks for easy copy/paste
+- Be confident, provide clear technical reasoning
+
+## 📝 Markdown & Documentation Formatting
+
+### Code Blocks in Release Notes & Documentation:
+- **Avoid triple backticks (```)** when creating code blocks that will be used in GitHub releases or other contexts where triple backticks may break formatting
+- **Use 4-space indentation** instead for code blocks in release notes, documentation, or any content that will be pasted into systems that don't handle triple backticks well
+- Triple backticks are fine for regular markdown files, but use indented code blocks when the content might be used in contexts where ``` breaks the formatting
+
+**Example:**
+    # Use 4-space indentation for code blocks
+    - uses: bcgov-nr/action-diff-triggers@v1.0.0
+      with:
+        triggers: ('backend/' 'frontend/')
+
+## 🚫 Repository-Specific Restrictions
+
+**When working in `copilot-instructions` repository:**
+- **NEVER mention Cursor** - this is work documentation for VS Code Copilot users
+- **NEVER mention personal rules or cursorrules** - keep work docs focused on shared standards only
+- **NEVER reference Cursor-specific features** - all documentation must be VS Code/Copilot compatible
+- If suggesting installation methods, only mention VS Code Copilot approaches
+
+## Privacy in Documentation
+
+**When creating or editing documentation (README.md, etc.):**
+- **NEVER include personal names** - use generic placeholders like "YOUR_USERNAME" or "user"
+- **NEVER include specific folder structures** - use generic paths like `~/workspace` rather than specific directory names
+- **NEVER include personal identifiers** - keep examples generic and applicable to anyone
+- Use placeholders (`YOUR_USERNAME`, `~/workspace`, etc.) that users can replace with their own values

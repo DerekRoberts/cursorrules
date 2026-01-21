@@ -1,0 +1,70 @@
+name: Privacy Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  privacy-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check for email addresses
+        run: |
+          FILES=$(find . -name "*.md" -o -name "cursorrules" | grep -v node_modules | grep -v ".git")
+          if [ -z "$FILES" ]; then
+            echo "⚠️ No files found to check"
+            exit 0
+          fi
+          # Check for email addresses but exclude git URLs (git@github.com, etc.)
+          if echo "$FILES" | xargs grep -riE "@.*\.(com|org|net|io|edu)" 2>/dev/null | grep -v "git@"; then
+            echo "❌ Error: Email addresses found"
+            echo "Please remove or replace with placeholder before committing"
+            exit 1
+          fi
+          echo "✅ No email addresses found"
+      
+      - name: Check for absolute user paths
+        run: |
+          FILES=$(find . -name "*.md" -o -name "cursorrules" | grep -v node_modules | grep -v ".git")
+          if [ -z "$FILES" ]; then
+            echo "⚠️ No files found to check"
+            exit 0
+          fi
+          # Check for absolute paths but allow common placeholders
+          if echo "$FILES" | xargs grep -rE "/home/[^/]+|/Users/[^/]+" 2>/dev/null | grep -vE "(YOUR_USERNAME|USERNAME|username|YOURNAME|yourname)"; then
+            echo "❌ Error: Absolute user paths found (not using placeholders)"
+            echo "Use ~/ or \$HOME instead, or use placeholders like YOUR_USERNAME"
+            exit 1
+          fi
+          echo "✅ No absolute user paths found (or using placeholders)"
+      
+      - name: Check for specific folder structures
+        run: |
+          FILES=$(find . -name "*.md" -o -name "cursorrules" | grep -v node_modules | grep -v ".git")
+          if [ -z "$FILES" ]; then
+            echo "⚠️ No files found to check"
+            exit 0
+          fi
+          if echo "$FILES" | xargs grep -rE "~/Repos|~/Documents/1-Personal" 2>/dev/null; then
+            echo "❌ Error: Specific folder structures found"
+            echo "Use generic paths like ~/workspace instead"
+            exit 1
+          fi
+          echo "✅ No specific folder structures found"
+      
+      - name: Check for API keys/tokens
+        run: |
+          FILES=$(find . -name "*.md" -o -name "cursorrules" | grep -v node_modules | grep -v ".git")
+          if [ -z "$FILES" ]; then
+            echo "⚠️ No files found to check"
+            exit 0
+          fi
+          if echo "$FILES" | xargs grep -riE "(api[_-]?key|token|secret|password)\s*[:=]" 2>/dev/null; then
+            echo "❌ Error: Potential API keys or tokens found"
+            echo "Please remove before committing"
+            exit 1
+          fi
+          echo "✅ No API keys or tokens found"
