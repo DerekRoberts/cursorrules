@@ -14,7 +14,8 @@ jobs:
       - name: Check for email addresses
         run: |
           FILES=$(find . -name "*.md" -o -name "cursorrules" | grep -v node_modules | grep -v ".git")
-          if grep -riE "@.*\.(com|org|net|io|edu)" $FILES 2>/dev/null; then
+          # Check for email addresses but exclude git URLs (git@github.com, etc.)
+          if grep -riE "@.*\.(com|org|net|io|edu)" $FILES 2>/dev/null | grep -v "git@"; then
             echo "❌ Error: Email addresses found"
             echo "Please remove or replace with placeholder before committing"
             exit 1
