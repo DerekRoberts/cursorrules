@@ -14,8 +14,12 @@ jobs:
       - name: Check for email addresses
         run: |
           FILES=$(find . -name "*.md" -o -name "cursorrules" | grep -v node_modules | grep -v ".git")
+          if [ -z "$FILES" ]; then
+            echo "⚠️ No files found to check"
+            exit 0
+          fi
           # Check for email addresses but exclude git URLs (git@github.com, etc.)
-          if grep -riE "@.*\.(com|org|net|io|edu)" $FILES 2>/dev/null | grep -v "git@"; then
+          if echo "$FILES" | xargs grep -riE "@.*\.(com|org|net|io|edu)" 2>/dev/null | grep -v "git@"; then
             echo "❌ Error: Email addresses found"
             echo "Please remove or replace with placeholder before committing"
             exit 1
@@ -25,8 +29,12 @@ jobs:
       - name: Check for absolute user paths
         run: |
           FILES=$(find . -name "*.md" -o -name "cursorrules" | grep -v node_modules | grep -v ".git")
+          if [ -z "$FILES" ]; then
+            echo "⚠️ No files found to check"
+            exit 0
+          fi
           # Check for absolute paths but allow common placeholders
-          if grep -rE "/home/[^/]+|/Users/[^/]+" $FILES 2>/dev/null | grep -vE "(YOUR_USERNAME|USERNAME|username|YOURNAME|yourname)"; then
+          if echo "$FILES" | xargs grep -rE "/home/[^/]+|/Users/[^/]+" 2>/dev/null | grep -vE "(YOUR_USERNAME|USERNAME|username|YOURNAME|yourname)"; then
             echo "❌ Error: Absolute user paths found (not using placeholders)"
             echo "Use ~/ or \$HOME instead, or use placeholders like YOUR_USERNAME"
             exit 1
@@ -36,7 +44,11 @@ jobs:
       - name: Check for specific folder structures
         run: |
           FILES=$(find . -name "*.md" -o -name "cursorrules" | grep -v node_modules | grep -v ".git")
-          if grep -rE "~/Repos|~/Documents/1-Personal" $FILES 2>/dev/null; then
+          if [ -z "$FILES" ]; then
+            echo "⚠️ No files found to check"
+            exit 0
+          fi
+          if echo "$FILES" | xargs grep -rE "~/Repos|~/Documents/1-Personal" 2>/dev/null; then
             echo "❌ Error: Specific folder structures found"
             echo "Use generic paths like ~/workspace instead"
             exit 1
@@ -46,7 +58,11 @@ jobs:
       - name: Check for API keys/tokens
         run: |
           FILES=$(find . -name "*.md" -o -name "cursorrules" | grep -v node_modules | grep -v ".git")
-          if grep -riE "(api[_-]?key|token|secret|password)\s*[:=]" $FILES 2>/dev/null; then
+          if [ -z "$FILES" ]; then
+            echo "⚠️ No files found to check"
+            exit 0
+          fi
+          if echo "$FILES" | xargs grep -riE "(api[_-]?key|token|secret|password)\s*[:=]" 2>/dev/null; then
             echo "❌ Error: Potential API keys or tokens found"
             echo "Please remove before committing"
             exit 1
