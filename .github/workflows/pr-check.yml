@@ -13,8 +13,8 @@ jobs:
       
       - name: Check for email addresses
         run: |
-          if grep -riE "@.*\.(com|org|net|io|edu)" cursorrules; then
-            echo "❌ Error: Email addresses found in cursorrules"
+          if grep -riE "@.*\.(com|org|net|io|edu)" cursorrules README.md PRIVACY.md 2>/dev/null; then
+            echo "❌ Error: Email addresses found"
             echo "Please remove or replace with placeholder before committing"
             exit 1
           fi
@@ -22,16 +22,26 @@ jobs:
       
       - name: Check for absolute user paths
         run: |
-          if grep -rE "/home/[^/]+|/Users/[^/]+" cursorrules; then
-            echo "❌ Error: Absolute user paths found"
-            echo "Use ~/ or \$HOME instead"
+          # Check for absolute paths but allow common placeholders
+          if grep -rE "/home/[^/]+|/Users/[^/]+" cursorrules README.md PRIVACY.md 2>/dev/null | grep -vE "(YOUR_USERNAME|USERNAME|username|YOURNAME|yourname)"; then
+            echo "❌ Error: Absolute user paths found (not using placeholders)"
+            echo "Use ~/ or \$HOME instead, or use placeholders like YOUR_USERNAME"
             exit 1
           fi
-          echo "✅ No absolute user paths found"
+          echo "✅ No absolute user paths found (or using placeholders)"
+      
+      - name: Check for specific folder structures
+        run: |
+          if grep -rE "~/Repos|~/Documents/1-Personal" cursorrules README.md PRIVACY.md 2>/dev/null; then
+            echo "❌ Error: Specific folder structures found"
+            echo "Use generic paths like ~/workspace instead"
+            exit 1
+          fi
+          echo "✅ No specific folder structures found"
       
       - name: Check for API keys/tokens
         run: |
-          if grep -riE "(api[_-]?key|token|secret|password)\s*[:=]" cursorrules; then
+          if grep -riE "(api[_-]?key|token|secret|password)\s*[:=]" cursorrules README.md PRIVACY.md 2>/dev/null; then
             echo "❌ Error: Potential API keys or tokens found"
             echo "Please remove before committing"
             exit 1

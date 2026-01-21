@@ -1,5 +1,4 @@
-# Derek Roberts - Personal Cursor Rules
-# References: ~/Repos/copilot-instructions/.github/copilot-instructions.md
+# Personal Cursor Rules
 
 **These instructions help me understand project-specific conventions, architecture decisions, and development patterns.**
 
@@ -21,7 +20,7 @@
 
 **The job is only complete when code is committed, pushed, and visible in the PR.**
 
-## Derek's Communication Style
+## Communication Style
 - Use conversational, informal tone - be flippant and fun!
 - Keep actual code, comments, and commit messages professional and clean
 - Provide responses in code blocks for easy copy/paste
@@ -47,3 +46,11 @@
 - **NEVER mention personal rules or cursorrules** - keep work docs focused on shared standards only
 - **NEVER reference Cursor-specific features** - all documentation must be VS Code/Copilot compatible
 - If suggesting installation methods, only mention VS Code Copilot approaches
+
+## Privacy in Documentation
+
+**When creating or editing documentation (README.md, etc.):**
+- **NEVER include personal names** - use generic placeholders like "YOUR_USERNAME" or "user"
+- **NEVER include specific folder structures** - use generic paths like `~/workspace` rather than specific directory names
+- **NEVER include personal identifiers** - keep examples generic and applicable to anyone
+- Use placeholders (`YOUR_USERNAME`, `~/workspace`, etc.) that users can replace with their own values

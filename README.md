@@ -11,17 +11,17 @@ These rules configure Cursor's AI assistant behavior to match personal preferenc
 ### Setup Instructions
 
 1. **Clone this repository:**
-    git clone https://github.com/YOUR_USERNAME/cursorrules.git ~/Repos/cursorrules
+    git clone `<REPO_LINK>` ~/workspace/cursorrules
 
 2. **Clone the shared copilot-instructions repository** (if you haven't already):
-    git clone https://github.com/bcgov/copilot-instructions.git ~/Repos/copilot-instructions
+    git clone https://github.com/bcgov/copilot-instructions.git ~/workspace/copilot-instructions
 
 3. **Configure Cursor Settings:**
    - Open Cursor
    - Go to **Settings → Rules → User Rules** (or **Preferences → Rules**)
    - Add both files as references (use absolute paths):
-     @/home/YOUR_USERNAME/Repos/cursorrules/cursorrules
-     @/home/YOUR_USERNAME/Repos/copilot-instructions/.github/copilot-instructions.md
+     @/home/YOUR_USERNAME/workspace/cursorrules/cursorrules
+     @/home/YOUR_USERNAME/workspace/copilot-instructions/.github/copilot-instructions.md
 
 **Why both files?**
 - `copilot-instructions.md` = Shared team/work standards (BCGov coding standards, git workflows, etc.)
@@ -40,15 +40,14 @@ This repository includes automated privacy checks:
 
 - **Pre-commit hook** - Blocks commits containing email addresses, absolute user paths, or API keys
 - **GitHub Actions workflow** - Validates PRs for private information
-- **PRIVACY.md** - Detailed guidelines on what to review
 
 **Before committing, review for:**
 
 - [ ] Email addresses (remove or use placeholder)
 - [ ] API keys or tokens
 - [ ] Personal file paths (use `~/` or `$HOME` instead of `/home/username`)
+- [ ] Personal names or identifiers
 - [ ] Internal project names or sensitive references
-- [ ] Personal identifiers beyond GitHub username
 - [ ] Workspace-specific paths that reveal directory structure
 
 **Safe to include:**
@@ -88,7 +87,7 @@ Edit `cursorrules` to match your preferences. Key sections:
 
 ## Updates
 
-    cd ~/Repos/cursorrules
+    cd ~/workspace/cursorrules
     git pull
 
 Cursor will automatically reload rules on next conversation.
